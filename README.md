@@ -4,8 +4,30 @@
 cliprobe 用于探测网络中的wifi客户，无需用户链接，进入网络后主动探测。并根据多台ap的反馈信号，计算出设备在场地内的坐标。
 
 核心代码:
+
 ap等路由系统上的报文抓取（未开源）
 server端根据汇报数据计算client位置
+
+对应web:
+
+一、基于用户做统计
+1、用户mac地址
+2、设备类型
+3、首次到场时间
+4、最近到场时间
+5、平均每次在场时间与在场总时间
+6、指定时间用户活跃排名（自选默认）
+
+二、基于场地做统计
+1、用户mac地址，用户到场时间，
+1、场地每天总人数
+2、平均在店时间
+3、在场人数在不同时间的曲线（采样时间自选）
+4、用户活跃区域图
+
+三、报表
+基于以上统计信息，每天，每周，每月，每季度出统计表
+
 
 编译执行
 --------------------
@@ -61,7 +83,7 @@ USAGE: serprobe [options]
 
 mysql数据库, 数据库配置使用`my.cnf`, 使用`[serprobe]` section.
 
-数据库：cliprobe 表: clipos
+数据库：cliprobe 表: clipos, user
 
 climac： 8字节存储，后6字节为mac地址
 
@@ -71,14 +93,26 @@ x，y，z: 坐标
 
 time: 时间戳
 
+first_time: 客户端首次出现时间
+
+last_time: 客户端最近一次出现时间
+
 ```sql
-CREATE TABLE IF NOT EXISTS "TABLENAME"(
+CREATE TABLE IF NOT EXISTS clipos (
 	climac BIGINT NOT NULL,
 	macstr CHAR(17) NOT NULL, 
 	x DOUBLE, 
 	y DOUBLE, 
 	z DOUBLE, 
 	time TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS  user (
+	climac BIGINT NOT NULL,
+	macstr CHAR(17) NOT NULL,
+	first_time DATETIME NOT NULL,
+	last_time DATETIME NOT NULL,
+	primary key (climac)
 );
 ```
 

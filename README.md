@@ -66,7 +66,7 @@ x，y，z: 坐标
 time: 时间戳
 
 ```sql
-CREATE TABLE IF NOT EXISTS "TABLENAME"(
+CREATE TABLE IF NOT EXISTS clipos(
 	climac BIGINT NOT NULL,
 	macstr CHAR(17) NOT NULL, 
 	x DOUBLE, 
@@ -74,6 +74,18 @@ CREATE TABLE IF NOT EXISTS "TABLENAME"(
 	z DOUBLE, 
 	time TIMESTAMP
 );
+```
+
+增加用户信息更新表:
+
+```sql
+CREATE TABLE IF NOT EXISTS  user (
+	climac BIGINT NOT NULL,
+	macstr CHAR(17) NOT NULL,
+	first_time DATETIME NOT NULL,
+	last_time DATETIME NOT NULL,
+	primary key (climac)
+	);
 ```
 
 存储

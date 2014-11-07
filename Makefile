@@ -7,11 +7,11 @@ INSTALL_BIN=install -m0755
 INSTALL_DATA=install -m0644
 INSTALL_CONF=install -m0644
 
-cli:
-	$(MAKE) -C cli
-
 server:
 	$(MAKE) -C server
+
+cli:
+	$(MAKE) -C cli
 
 clean:
 	$(MAKE) -C cli clean

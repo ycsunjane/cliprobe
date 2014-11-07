@@ -1,6 +1,12 @@
 介绍
 =======
 
+cliprobe 用于探测网络中的wifi客户，无需用户链接，进入网络后主动探测。并根据多台ap的反馈信号，计算出设备在场地内的坐标。
+
+核心代码:
+ap等路由系统上的报文抓取（未开源）
+server端根据汇报数据计算client位置
+
 编译执行
 --------------------
 
@@ -66,7 +72,7 @@ x，y，z: 坐标
 time: 时间戳
 
 ```sql
-CREATE TABLE IF NOT EXISTS clipos(
+CREATE TABLE IF NOT EXISTS "TABLENAME"(
 	climac BIGINT NOT NULL,
 	macstr CHAR(17) NOT NULL, 
 	x DOUBLE, 
@@ -74,18 +80,6 @@ CREATE TABLE IF NOT EXISTS clipos(
 	z DOUBLE, 
 	time TIMESTAMP
 );
-```
-
-增加用户信息更新表:
-
-```sql
-CREATE TABLE IF NOT EXISTS  user (
-	climac BIGINT NOT NULL,
-	macstr CHAR(17) NOT NULL,
-	first_time DATETIME NOT NULL,
-	last_time DATETIME NOT NULL,
-	primary key (climac)
-	);
 ```
 
 存储
